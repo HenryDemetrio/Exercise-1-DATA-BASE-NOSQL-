@@ -1,0 +1,95 @@
+///////// TRABALHO BANCO DE DADOS PRÁTICA 
+////////////// Henry Demétrio - 22010597 
+////////////// Bernardo Stocco - 22000390 
+
+
+use("hospital")
+db.pacientes.drop();
+db.createCollection("pacientes")
+
+db.pacientes.insertMany([
+  {
+    nome: "Enzo Pinesse",
+       rg: "53-700-936-X",
+       cpf: "254-507-928-45",
+    endereco: {
+         rua: "Avenida Emilio",
+         bairro: "Centro",
+         numero: 66,
+         cidade: "Campinas",
+    },
+    telefone: 15997413172,
+    celular: 219948384,
+    convenio: {
+      nome_convenio: "Careplus",
+      tipo: "particular",
+        exame:{
+          descricao: "Nervos Cranianos",
+          medico: {
+            nome:"Saint Clair",
+            telefone: 2370093412,
+            celular: 15997983417,
+            endereco: {
+                 rua: "Iperó",
+                bairro: "Paulo Antunes Moreira",
+                numero: 23,
+                cidade: "Campinas",
+            },
+            especialidade:{
+              nome: "Nervos Cranianos"
+            },
+            departamento: {
+              nome_departamento: "Departamento dos Nervos",
+              localizacao: "Avenida Emilio Zerbini"
+            }
+          }
+        }
+    }
+  },
+  {
+    nome: "Lucas Maia",
+       rg: "55-453-935-9",
+       cpf: "507.247.911-42",
+    endereco: {
+          rua: "Avenida Paulo Antunes",
+          bairro: "Centro",
+          numero: 63,
+          cidade: "Iperó",
+    },
+    telefone: 383293212,
+    celular: 19987219212,
+    convenio: {
+      nome_convenio: "Careplus",
+      tipo: "publica",
+        exame:{
+          descricao: "Nervos Cranianos",
+          medico: {
+            nome:"Saint Clair",
+            telefone: 1599561378,
+            celular: 13887312101,
+            endereco: {
+                 rua: "Iperó",
+                 bairro: "Paulo Antunes Moreira",
+                 numero: 23,
+                 cidade: "Campinas",
+            },
+            especialidade:{
+              nome: "Nervos Cranianos"
+            },
+            departamento: {
+              nome_departamento: "Nervos Cranianos",
+              localizacao: "Avenida Emilio Zerbini"
+            }
+          }
+        }
+      }
+  }
+
+])
+
+
+db.pacientes.find({"convenio.nome_convenio": "Careplus"}, {"convenio.exame": "Nervos Cranianos"})
+
+db.pacientes.find({"convenio.exame.medico.nome": "Saint Clair"})
+
+db.pacientes.find({"convenio.exame.descricao": "Nervos Cranianos"}, {"convenio.exame.medico": "Saint Clair"})
